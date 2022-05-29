@@ -12,11 +12,11 @@ const Rightbar = () => {
     sx={{display:{xs:"none", sm:"block"}}}
     >
       <Box position="fixed" width={300}>
-      <Typography variant="h6" fontWeight={100} mb={1}>Online Friends</Typography>
+      <Typography variant="h6" fontWeight={300} mb={1}>Online Friends</Typography>
       <Avatarfriend/>
-      <Typography variant="h6" fontWeight={100} mt={1} mb={2}>Latest Posts</Typography>
+      <Typography variant="h6" fontWeight={300} mt={1} mb={2}>Latest Posts</Typography>
       <Photos/>
-      <Typography variant="h6" fontWeight={100} mt={1} mb={1}>Latest Conversations</Typography>
+      <Typography variant="h6" fontWeight={300} mt={1} mb={1}>Latest Conversations</Typography>
       <Conversations/>
       </Box>
     </Box>
