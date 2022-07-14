@@ -21,9 +21,10 @@ pipeline {
                 }
                 stage('Deliver') {
                             steps {
-                                sh './deliver.sh'
+                                sh 'npm run build'
+                                sh 'npm start'
                                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                                sh './kill.sh'
+                                sh 'kill $(cat .pidfile)'
                             }
                         }
 
