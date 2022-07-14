@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test') {
                     steps {
-                        sh './test.sh'
+                        sh 'npm test'
                     }
                 }
                 stage('Deliver') {
