@@ -2,6 +2,9 @@ import { Avatar, Button, ButtonGroup, Fab, Modal, Stack, styled, TextField, Tool
 import React, { useState } from 'react'
 import { Box } from '@mui/system';
 import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate, Navigate } from 'react-router-dom';
+import { Login } from './Login'
 import { DateRange, EmojiEmotions, Image, PersonAdd, VideoCameraBack } from '@mui/icons-material';
 
 const Styledmodal = styled(Modal)({
@@ -17,13 +20,20 @@ const Userbox = styled(Box)({
   marginBottom:"20px"
 });
 
+const emoji = () => {
+  console.log("emoji");
+}
+const browse = () => {
+  console.log("browse");
+}
+
 const Add = () => {
     const [open, setOpen] = useState(false)
   return (
     <Box sx={{ '& > :not(style)': { m: 1 } }}>
     <Tooltip title="Create new Post" sx={{position:"fixed",bottom:20,left:10}}>
       <Fab color="primary" aria-label="add">
-        <AddIcon onClick={e=>setOpen(true)}/>
+        <AddIcon onClick={()=> {setOpen(true)}}/>
       </Fab>
     </Tooltip>
 <Styledmodal
@@ -36,8 +46,8 @@ const Add = () => {
     <Typography variant='h6' color="gray" textAlign="center">Create Post</Typography>
     <Userbox>
       <Avatar
-      sx={{ bgcolor: "lightcoral",height:32, width:32}} >HN</Avatar>
-      <Typography variant='span' fontWeight={500}>Hasib Nirban</Typography>
+      sx={{ bgcolor: "lightcoral",height:32, width:32}} ><PersonIcon/></Avatar>
+      <Typography variant='span' fontWeight={500}>{localStorage.getItem("user")}</Typography>
     </Userbox>
     <TextField
           id="standard-multiline-static"
@@ -48,7 +58,7 @@ const Add = () => {
           variant="standard"
         />
         <Stack direction={"row"} mt={1} mb={4} gap={1}>
-          <EmojiEmotions color="primary"/><Image color="secondary"/><VideoCameraBack color="success"/>
+          <EmojiEmotions color="primary" onClick={emoji}/><Image color="secondary" onClick={browse}/><VideoCameraBack color="success"/>
           <PersonAdd color="error"/>
         </Stack>
         <ButtonGroup variant="contained" aria-label="outlined primary button group" fullWidth>

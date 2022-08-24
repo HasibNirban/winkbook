@@ -87,7 +87,7 @@ const Sidebar = ({mode,setMode}) => {
               <ListItemIcon>
                 <Storefront/>
               </ListItemIcon>
-              <ListItemText primary="Marketplace" />
+              <ListItemText primary="Market" />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

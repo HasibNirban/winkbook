@@ -1,5 +1,6 @@
 import { Checkbox } from '@mui/material'
 import React from 'react'
+import PersonIcon from '@mui/icons-material/Person';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -11,35 +12,47 @@ import Typography from '@mui/material/Typography';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Favorite, FavoriteBorder} from '@mui/icons-material';
+import { useState } from 'react'
+import {Divider} from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 
-const Posts = () => {
+ const Posts = ({ob}) => {
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+today = dd + '/' + mm + '/' + yyyy;
+console.log(ob);
+
+const [Open, setOpen] = useState(false);
+
+
+if (typeof ob !== 'undefined')
   return (
     <Card sx={{margin:0.5}}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: "lightcoral" }} aria-label="recipe">
-            HN
+            <PersonIcon />
           </Avatar>
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <MoreVertIcon onClick={e => setOpen(true)}/>
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="May 24, 2022"
+        title={ob.userName}
+        subheader= {ob.updated_at.split("T")[0]}
       />
       <CardMedia
         component="img"
         height="20%"
-        image="https://mui.com/static/images/cards/paella.jpg"
-        alt="Paella dish"
+        image= {ob.url}
+        alt={ob.caption}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {ob.caption}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
@@ -50,9 +63,33 @@ const Posts = () => {
           <ShareIcon />
         </IconButton>
       </CardActions>
+    
+      <Menu
+        id="demo-positioned-menu"
+        aria-labelledby="demo-positioned-button"
+        open={Open}
+        onClose = {e => setOpen(false)}
+        anchorOrigin={{
+          vertical: 'center',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        <MenuItem >Edit Post</MenuItem>
+        <Divider />
+        <MenuItem >Delete Post</MenuItem>
+        <Divider />
+        <MenuItem >Quick Share</MenuItem>
+        <Divider />
+        <MenuItem >Send via chats</MenuItem>
+        <Divider />
+        <MenuItem >Copy Link</MenuItem>
+      </Menu>
     </Card>
-
-  )
+  );
 }
 
 export default Posts
