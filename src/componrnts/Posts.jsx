@@ -22,12 +22,32 @@ var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
-console.log(ob);
 
-const [Open, setOpen] = useState(false);
-
-
-if (typeof ob !== 'undefined')
+const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+if (typeof ob !== 'undefined'){
+  const deletePost = () => {
+    fetch('http://gagandeep.engineer:8080/post/',{
+      method: 'DELETE',
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Token " + localStorage.getItem('authtoken')
+      },
+    }).then((response) => {
+      if(response.status >= 200 && response.status < 300){
+        response.json().then((data) => {
+          //console.log(data);
+        })
+      }
+    })
+  }
   return (
     <Card sx={{margin:0.5}}>
       <CardHeader
@@ -38,7 +58,7 @@ if (typeof ob !== 'undefined')
         }
         action={
           <IconButton aria-label="settings">
-            <MoreVertIcon onClick={e => setOpen(true)}/>
+            <MoreVertIcon onClick={handleClick}/>
           </IconButton>
         }
         title={ob.userName}
@@ -65,23 +85,27 @@ if (typeof ob !== 'undefined')
       </CardActions>
     
       <Menu
-        id="demo-positioned-menu"
+        id="-enu"
         aria-labelledby="demo-positioned-button"
-        open={Open}
-        onClose = {e => setOpen(false)}
+        open={open}
+        onClose = {handleClose}
+        anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'center',
+          vertical: 'left',
           horizontal: 'center',
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'center',
+          horizontal: 'right',
         }}
       >
         <MenuItem >Edit Post</MenuItem>
         <Divider />
-        <MenuItem >Delete Post</MenuItem>
+        {ob.userName === localStorage.getItem('user')?
+        <div>
+        <MenuItem onClick={deletePost}>Delete Post</MenuItem>
         <Divider />
+        </div>: <div></div>}
         <MenuItem >Quick Share</MenuItem>
         <Divider />
         <MenuItem >Send via chats</MenuItem>
@@ -90,6 +114,7 @@ if (typeof ob !== 'undefined')
       </Menu>
     </Card>
   );
+      }
 }
 
 export default Posts

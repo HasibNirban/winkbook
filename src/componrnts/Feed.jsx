@@ -1,17 +1,15 @@
-import { Box, MenuItem } from '@mui/material'
+import { Box } from '@mui/material'
 import Posts from './Posts'
-import { useEffect, useLayoutEffect,useState} from 'react';
+import { useEffect, useState} from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import {styled} from '@mui/material';
-import React, { Component } from 'react'
+import React from 'react'
 
-var obj = [];
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
 var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 today = dd + '/' + mm + '/' + yyyy;
-const user = localStorage.getItem('user');
 
 const Feed = () => { 
 
@@ -39,7 +37,7 @@ const UserBox = styled(Box)(({ theme }) => ({
   paddingLeft:"350px",
 }));
 
-const [users, setUsers] = useState([]);
+var [users, setUsers] = useState([]);
 
 useEffect(() => {
   fetch('http://gagandeep.engineer:8080/post/',{
@@ -51,12 +49,12 @@ useEffect(() => {
   }).then((response) => {
     if(response.status >= 200 && response.status < 300){
       response.json().then((data) => {
+        console.log(data);
         setUsers(data);
       })
     }
   })
 }, []);
-
 if (users.length===0) return <UserBox><CircularProgress /></UserBox>;
 //console.log(users);
  return (

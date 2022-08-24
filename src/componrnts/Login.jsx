@@ -12,8 +12,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
-import { Component } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 
 
@@ -79,7 +77,6 @@ export const Login = () => {
       body: cred
     }).then((result) => {
       result.json().then((resp) => {
-        console.log(resp);
         localStorage.setItem("authtoken",resp.token);
         localStorage.setItem("user",data.get('email'));
         if(resp.token){
